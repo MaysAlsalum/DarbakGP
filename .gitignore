@@ -1,9 +1,25 @@
-# =========================
 # Virtual Environment
-# =========================
-venv/
-.env/
-.env.*
 .venv/
-# =========================
+venv/
 
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter / ipynb checkpoints
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# Downloaded datasets / generated files
+datasets/raw/
+datasets/processed/
+*.csv
+*.json
+*.xlsx
+
+# Temporary files
+raw_response.txt
+*.log
