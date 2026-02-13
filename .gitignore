@@ -23,3 +23,16 @@ datasets/processed/
 # Temporary files
 raw_response.txt
 *.log
+
+
+
+# ==============================
+# Ignore all data
+# ==============================
+#data/*
+
+# ==============================
+# BUT keep final folder
+# ==============================
+#!data/final/
+#!data/final/*
