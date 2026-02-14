@@ -16,3 +16,7 @@ git checkout -b new_branch_name
 git add .
 git commit -m "Your commit message"
 git push origin new_branch_name
+
+# Run Django
+cd backend
+python manage.py runserver
