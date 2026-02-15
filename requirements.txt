@@ -8,5 +8,5 @@ python-dotenv
 kagglehub
 ipykernel
 fastparquet
-django
 apscheduler
+django
