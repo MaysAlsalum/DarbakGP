@@ -20,3 +20,6 @@ git push origin new_branch_name
 # Run Django
 cd backend
 python manage.py runserver
+
+# Run FastAPI server (main.py) using Uvicorn with auto-reload for development
+uvicorn backend.src.api.main:app --reload
