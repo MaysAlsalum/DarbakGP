@@ -17,9 +17,12 @@ git add .
 git commit -m "Your commit message"
 git push origin new_branch_name
 
-# Run Django
+#run django server
 cd backend
 python manage.py runserver
 
 # Run FastAPI server (main.py) using Uvicorn with auto-reload for development
 uvicorn backend.src.api.main:app --reload
+
+
+

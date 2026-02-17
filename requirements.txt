@@ -10,3 +10,6 @@ ipykernel
 fastparquet
 apscheduler
 django
+djangorestframework
+django-filter
+drf-spectacular

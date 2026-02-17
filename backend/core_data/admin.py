@@ -14,8 +14,8 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(District)
 class DistrictAdmin(admin.ModelAdmin):
-    list_display = ("district_id", "district_name", "city")
-    search_fields = ("district_name",)
+    list_display = ("district_id", "district_name_ar", "district_name_en", "city")
+    search_fields = ("district_name_ar", "district_name_en")
     list_filter = ("city",)
 
 
@@ -38,7 +38,7 @@ class POIAdmin(admin.ModelAdmin):
 class EventAdmin(admin.ModelAdmin):
     list_display = ("event_id", "name", "city", "start_date", "end_date", "event_mode", "source")
     search_fields = ("name",)
-    list_filter = ("city", "event_mode", "source")
+    list_filter = ("city", "source")
 
 
 @admin.register(WeatherContext)
