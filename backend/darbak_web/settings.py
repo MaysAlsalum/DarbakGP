@@ -40,6 +40,10 @@ INSTALLED_APPS = [
 
     
     'core_data',
+    'rest_framework',
+    "drf_spectacular",
+
+
 ]
 
 MIDDLEWARE = [
@@ -124,3 +128,44 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Additional settings for Django REST Framework and django-filter
+INSTALLED_APPS += ["django_filters"]
+
+# Django REST Framework settings
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
+
+    "DEFAULT_FILTER_BACKENDS": [
+      "django_filters.rest_framework.DjangoFilterBackend",
+      "rest_framework.filters.SearchFilter",
+      "rest_framework.filters.OrderingFilter",
+    ],
+
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
+
+
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 20,
+}
+
+
+
+
+
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Darbak API",
+    "DESCRIPTION": "AI-powered Smart Tourism API for Saudi Arabia",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
