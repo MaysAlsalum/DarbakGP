@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 
 class City(models.Model):                #المدن
     """
@@ -16,26 +16,33 @@ class City(models.Model):                #المدن
 
     def __str__(self):
         return f"{self.city_geo} ({self.city_name_ar})"
+    
 
 
-class District(models.Model):                     #الأحياء
-    """
-    Districts for the selected cities.
-    Source: final/districts_selected.parquet
-    """
+class District(models.Model):
     district_id = models.AutoField(primary_key=True)
-    district_name = models.CharField(max_length=150)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name="districts")
+
+    district_name_ar = models.CharField(max_length=150)
+    district_name_en = models.CharField(max_length=150, null=True, blank=True)
+
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
+
+    city = models.ForeignKey(
+        City,
+        on_delete=models.CASCADE,
+        related_name="districts"
+    )
 
     class Meta:
         db_table = "districts"
         indexes = [
             models.Index(fields=["city"]),
-            models.Index(fields=["district_name"]),
+            models.Index(fields=["district_name_ar"]),
         ]
 
     def __str__(self):
-        return self.district_name
+        return f"{self.district_name_ar} ({self.city.city_geo})"
 
 
 class POICategory(models.Model):                       #فئات نقاط الاهتمام
@@ -118,8 +125,20 @@ class Event(models.Model):                     #الفعاليات
     is_female_allowed = models.BooleanField(null=True, blank=True)
     is_family_allowed = models.BooleanField(null=True, blank=True)
 
-    event_mode = models.CharField(max_length=50, null=True, blank=True)  # indoor/outdoor/online etc
+   
     source = models.CharField(max_length=50, null=True, blank=True)
+
+
+        
+    @property
+    def event_mode(self):
+        today = timezone.now().date()
+        if self.start_date and self.end_date:
+            if self.start_date <= today <= self.end_date:
+                return "IsActive"
+        return "IsExpired"    
+
+
 
     class Meta:
         db_table = "events"
@@ -130,6 +149,10 @@ class Event(models.Model):                     #الفعاليات
 
     def __str__(self):
         return self.name
+
+
+
+
 
 
 class WeatherContext(models.Model):                  #السياق الجوي
