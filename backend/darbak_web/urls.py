@@ -22,6 +22,14 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
+
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("core_data.api.urls")),
@@ -31,4 +39,11 @@ urlpatterns = [
 
     # Swagger UI
     path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+
+    # Personalization API
+     path("api/personalization/", include("ml.personalization.api.urls")),
+
+    # JWT Authentication endpoints
+     path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
