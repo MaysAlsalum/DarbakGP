@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 class City(models.Model):                #المدن
     """
     Reference table for the selected cities (1..4).
@@ -128,6 +129,16 @@ class Event(models.Model):                     #الفعاليات
    
     source = models.CharField(max_length=50, null=True, blank=True)
 
+    category = models.ForeignKey(
+    "core_data.POICategory",
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name="events")
+
+    
+
+
 
         
     @property
@@ -225,10 +236,5 @@ class WeatherForecast(models.Model):
 
     def __str__(self):
         return f"{self.city.city_geo} @ {self.forecast_time}"
-
-
-
-
-
 
 
